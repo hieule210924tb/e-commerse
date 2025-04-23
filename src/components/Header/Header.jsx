@@ -1,11 +1,9 @@
-import Button from '@components/Button/Button';
-function Header() {
+function MyHeader() {
     return (
         <>
-            <h2>xin chào</h2>
-            <Button />
+            <h2>My Header</h2>
         </>
     );
 }
 
-export default Header;
+export default MyHeader;

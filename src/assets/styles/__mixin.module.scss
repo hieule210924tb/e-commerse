@@ -1,0 +1,5 @@
+// __mixin viết các khối style chung để tái sử dụng
+
+@mixin radius_common($radius: 10px) {
+    border-radius: $radius;
+}

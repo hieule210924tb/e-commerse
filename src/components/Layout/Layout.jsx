@@ -1,9 +1,11 @@
-function MyLayout({ children }) {
+import styles from './Layout.module.scss';
+function ManiLayout({ children }) {
+    const { WrapLayout, container } = styles;
     return (
-        <main>
-            <div>{children}</div>
+        <main className={WrapLayout}>
+            <div className={container}>{children}</div>
         </main>
     );
 }
 
-export default MyLayout;
+export default ManiLayout;

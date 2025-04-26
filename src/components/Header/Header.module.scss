@@ -1,0 +1,59 @@
+@use '@styles/__mixin.module' as *;
+@use '@styles/__variable.module' as *;
+.container {
+    @include flex_box_custom(center, center, 0px);
+}
+.containerHeader {
+    width: 1250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 0;
+}
+.containerMenu {
+    @include flex_box_custom(center, center, 41px);
+    height: 57px;
+}
+.containerBox {
+    @include flex_box_custom(center, center, 20px);
+}
+.boxIcon {
+    @include flex_box_custom(center, center, 0);
+    @include radius_common(50%);
+    width: 26px;
+    height: 26px;
+    background-color: $primary_color;
+}
+.imgIcon {
+    width: 26px;
+    height: 26px;
+}
+.containerBoxIcon {
+    @include flex_box_custom(center, center, 10px);
+}
+.logoImg {
+    width: 153px;
+    height: 53px;
+}
+.menu {
+    margin-top: 16px;
+    cursor: pointer;
+    padding: 4px 0;
+    font-size: 15px;
+    color: $primary_color;
+}
+.menu::after {
+    content: '';
+    display: block;
+    height: 3px;
+    background-color: $primary_color;
+    transform-origin: right;
+    transform: scale(0);
+    transition: transform 300ms, opacity 500ms;
+    opacity: 0;
+    margin-top: 12px;
+}
+.menu:hover::after {
+    transform: scale(1);
+    opacity: 1;
+}

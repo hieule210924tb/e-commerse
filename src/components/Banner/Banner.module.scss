@@ -1,0 +1,27 @@
+@use '@styles/__mixin.module.scss' as *;
+@use '@styles/__variable.module.scss' as *;
+.container {
+    @include flex_box_custom(center, center, 0);
+    background-image: url(../../assets/images/Banner.jpeg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 750px;
+}
+.content {
+    @include flex_box_custom(center, center, 20px);
+    flex-direction: column;
+}
+.title {
+    font-size: 42px;
+    font-weight: 400;
+    color: $four_color;
+    margin: 15px 0;
+}
+.desc {
+    text-align: center;
+    color: $th_color;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+    margin-bottom: 25px;
+}

@@ -1,6 +1,10 @@
 @use '@styles/__mixin.module' as *;
 @use '@styles/__variable.module' as *;
 .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     @include flex_box_custom(center, center, 0px);
 }
 .containerHeader {
@@ -23,8 +27,10 @@
     width: 26px;
     height: 26px;
     background-color: $primary_color;
+    cursor: pointer;
 }
 .imgIcon {
+    cursor: pointer;
     width: 26px;
     height: 26px;
 }

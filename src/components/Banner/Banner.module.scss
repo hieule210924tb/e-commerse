@@ -4,8 +4,9 @@
     @include flex_box_custom(center, center, 0);
     background-image: url(../../assets/images/Banner.jpeg);
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     min-height: 750px;
+    background-position: center;
 }
 .content {
     @include flex_box_custom(center, center, 20px);

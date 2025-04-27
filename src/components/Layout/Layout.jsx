@@ -1,5 +1,5 @@
 import styles from './Layout.module.scss';
-function ManiLayout({ children }) {
+function MainLayout({ children }) {
     const { WrapLayout, container } = styles;
     return (
         <main className={WrapLayout}>
@@ -8,4 +8,4 @@ function ManiLayout({ children }) {
     );
 }
 
-export default ManiLayout;
+export default MainLayout;

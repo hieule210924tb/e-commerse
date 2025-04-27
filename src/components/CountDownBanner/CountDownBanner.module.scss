@@ -1,0 +1,23 @@
+@use '@styles/__variable.module.scss' as *;
+@use '@styles/__mixin.module.scss' as *;
+.container {
+    background-image: url('https://images.pexels.com/photos/5474307/pexels-photo-5474307.jpeg?cs=srgb&dl=pexels-cottonbro-5474307.jpg&fm=jpg');
+    width: calc(100% / 2);
+    height: 409px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.containerTimer {
+    @include flex_box_custom(center, center, 10px);
+}
+.title {
+    text-align: center;
+    color: $primary_color;
+    font-size: 28px;
+    margin-bottom: 5px;
+    color: $four_color;
+}
+.boxBtn {
+    margin-top: 20px;
+    text-align: center;
+}

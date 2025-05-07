@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.9.0",
     "e-commerse-react-vite": "file:",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",

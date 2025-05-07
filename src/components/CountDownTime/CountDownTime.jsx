@@ -9,7 +9,7 @@ const CountDownTime = ({ targetDate }) => {
         if (difference > 0) {
             timeLeft = {
                 Days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                Dours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                Hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
                 Mins: Math.floor((difference / (1000 * 60)) % 60),
                 Secs: Math.floor((difference / 1000) % 60),
             };

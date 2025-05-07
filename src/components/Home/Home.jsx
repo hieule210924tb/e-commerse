@@ -4,11 +4,15 @@ import AdvanceHeadline from '@components/AdvanceHeadline/AdvanceHeadline';
 import Info from '@components/Info/Info';
 import HeadingListProduct from '@components/HeadingListProduct/HeadingListProduct';
 import SaleHomePage from '@components/SaleHomePage/SaleHomePage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getProducts } from '@/apis/productsService';
+import PopularProduct from '@components/PopularProduct/PopularProduct';
 function Home() {
+    const [listProduct, setListProduct] = useState([]);
     useEffect(() => {
-        getProducts();
+        getProducts().then((res) => {
+            setListProduct(res.contents);
+        });
     }, []);
     return (
         <div>
@@ -17,8 +21,11 @@ function Home() {
                 <Banner />
                 <Info />
                 <AdvanceHeadline />
-                <HeadingListProduct />
-                <SaleHomePage />
+                <HeadingListProduct data={listProduct.slice(0, 2)} />
+                <PopularProduct
+                    data={listProduct.slice(2, listProduct.length)}
+                />
+                {/* <SaleHomePage /> */}
             </div>
         </div>
     );

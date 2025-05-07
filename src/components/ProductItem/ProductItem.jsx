@@ -3,7 +3,7 @@ import reLoadIcon from '@icons/svgs/reloadIcon.svg';
 import heartIcon from '@icons/svgs/heartIcon.svg';
 import cartIcon from '@icons/svgs/cartIcon.svg';
 import eyeIcon from '@icons/svgs/eyeIcon.svg';
-function ProductItem({ src, prveSrc, name, price }) {
+function ProductItem({ src, prevSrc, name, price }) {
     const {
         boxImg,
         showImgHover,
@@ -16,15 +16,8 @@ function ProductItem({ src, prveSrc, name, price }) {
     return (
         <div className={container}>
             <div className={boxImg}>
-                <img
-                    src='https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.1-min.jpg'
-                    alt=''
-                />
-                <img
-                    className={showImgHover}
-                    src='https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.2-min.jpg'
-                    alt=''
-                />
+                <img src={src} alt={name} />
+                <img className={showImgHover} src={prevSrc} alt={name} />
                 <div className={showFncHover}>
                     <div className={boxIcon}>
                         <img src={cartIcon} alt='' />
@@ -40,8 +33,8 @@ function ProductItem({ src, prveSrc, name, price }) {
                     </div>
                 </div>
             </div>
-            <div className={title}>10K Yellow Gold</div>
-            <div className={priceProduct}>$99.99</div>
+            <div className={title}>{name}</div>
+            <div className={priceProduct}> ${price}</div>
         </div>
     );
 }

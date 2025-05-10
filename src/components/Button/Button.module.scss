@@ -5,11 +5,28 @@
     background-color: $primary_color;
     font-size: 14px;
     font-weight: 400;
+    cursor: pointer;
+    &:hover {
+        transition: background-color 300ms;
+    }
+}
+.primaryBtn {
+    background-color: $primary_color;
+    color: $white_color;
     &:hover {
         cursor: pointer;
         background-color: transparent;
         color: $primary_color;
-        border: $primary_color solid 1px;
-        transition: background-color 300ms;
+        border: 1px solid $primary_color;
+    }
+}
+.secondaryBtn {
+    background-color: $white_color;
+    color: $primary_color;
+    border: 1px solid $primary_color;
+    &:hover {
+        cursor: pointer;
+        background-color: $primary_color;
+        color: $white_color;
     }
 }

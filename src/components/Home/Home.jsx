@@ -25,7 +25,7 @@ function Home() {
                 <PopularProduct
                     data={listProduct.slice(2, listProduct.length)}
                 />
-                {/* <SaleHomePage /> */}
+                <SaleHomePage />
             </div>
         </div>
     );

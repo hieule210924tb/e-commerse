@@ -1,4 +1,3 @@
-import CountDownTime from '@components/CountDownTime/CountDownTime';
 import MainLayout from '@components/Layout/Layout';
 import styles from './HeadingListProduct.module.scss';
 import CountDownBanner from '@components/CountDownBanner/CountDownBanner';
@@ -13,7 +12,7 @@ function HeadingListProduct({ data }) {
                 <div className={containerItem}>
                     {data.map((item) => (
                         <ProductItem
-                            key={item.id}
+                            key={item._id}
                             src={item.images[0]}
                             prevSrc={item.images[1]}
                             name={item.name}

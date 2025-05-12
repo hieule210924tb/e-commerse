@@ -1,11 +1,23 @@
 @use '@styles/__mixin.module' as *;
 @use '@styles/__variable.module' as *;
 .container {
-    position: absolute;
-    top: 0;
+    @include flex_box_custom(center, center, 0px);
     left: 0;
     right: 0;
-    @include flex_box_custom(center, center, 0px);
+}
+.topHeader {
+    position: absolute;
+    top: 0;
+}
+.fixedHeader {
+    position: fixed;
+    top: -90px;
+    background-color: #ffffffe6;
+    box-shadow: 2px 0 12px 0 rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(5px);
+    z-index: 9;
+    transform: translateY(90px);
+    transition: transform ease 700ms;
 }
 .containerHeader {
     width: 1250px;

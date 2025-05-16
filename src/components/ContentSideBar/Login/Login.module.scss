@@ -1,10 +1,11 @@
 @use '@styles/__variable.module.scss' as *;
 .container {
-    padding: 30px 20px 0 20px;
+    padding: 20px 30px;
     .title {
         font-size: 18px;
         text-align: center;
         margin-bottom: 30px;
+        color: $thr_color;
     }
     .boxRememberMe {
         margin-bottom: 30px;

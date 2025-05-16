@@ -6,9 +6,23 @@ import { TfiClose } from 'react-icons/tfi';
 import Login from '@components/ContentSideBar/Login/Login';
 function SideBar() {
     const { container, overlay, sideBar, slideSideBar, boxIcon } = styles;
-    const { isOpen, setIsOpen } = useContext(SideBarContext);
+    const { isOpen, setIsOpen, type } = useContext(SideBarContext);
     const handleToggle = () => {
         setIsOpen(!isOpen);
+    };
+    const handleRenderContent = () => {
+        switch (type) {
+            case 'login':
+                return <Login />;
+            case 'compare':
+                return 'compare';
+            case 'wishlist':
+                return 'wishlist';
+            case 'cart':
+                return 'cart';
+            default:
+                return <Login />;
+        }
     };
     return (
         <div className={container}>
@@ -28,7 +42,7 @@ function SideBar() {
                         <TfiClose />
                     </div>
                 )}
-                <Login />
+                {handleRenderContent()}
             </div>
         </div>
     );

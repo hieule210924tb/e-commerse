@@ -3,9 +3,9 @@ import styles from './Header.module.scss';
 import { dataBoxIcon, dataMenu } from '@components/Header/BoxIcon/constant';
 import Menu from '@components/Header/Menu/Menu';
 import Logo from '@icons/images/Logo-retina.webp';
-import reLoadIcon from '@icons/svgs/reloadIcon.svg';
-import heartIcon from '@icons/svgs/heartIcon.svg';
-import cartIcon from '@icons/svgs/cartIcon.svg';
+import { IoIosHeartEmpty } from 'react-icons/io';
+import { TfiReload } from 'react-icons/tfi';
+import { PiShoppingCart } from 'react-icons/pi';
 import useScrollHandling from '@/hooks/useScrollHandling';
 import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
@@ -17,14 +17,17 @@ function MyHeader() {
         containerHeader,
         containerBox,
         logoImg,
-        imgIcon,
         container,
         topHeader,
         fixedHeader,
     } = styles;
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
-    const { isOpen, setIsOpen } = useContext(SideBarContext);
+    const { setIsOpen, setType } = useContext(SideBarContext);
+    const handleOpenSideBar = (type) => {
+        setIsOpen(true);
+        setType(type);
+    };
     useEffect(() => {
         scrollPosition > 90 ? setFixedPosition(true) : setFixedPosition(false);
     }, [scrollPosition]);
@@ -72,13 +75,18 @@ function MyHeader() {
                             ))}
                     </div>
                     <div className={containerBoxIcon}>
-                        <img
-                            className={imgIcon}
-                            src={reLoadIcon}
-                            alt='re-load'
+                        <TfiReload
+                            style={{ fontSize: '20' }}
+                            onClick={() => handleOpenSideBar('compare')}
                         />
-                        <img className={imgIcon} src={heartIcon} alt='heart' />
-                        <img className={imgIcon} src={cartIcon} alt='cart' />
+                        <IoIosHeartEmpty
+                            style={{ fontSize: '24' }}
+                            onClick={() => handleOpenSideBar('wishlist')}
+                        />
+                        <PiShoppingCart
+                            style={{ fontSize: '24' }}
+                            onClick={() => handleOpenSideBar('cart')}
+                        />
                     </div>
                 </div>
             </div>

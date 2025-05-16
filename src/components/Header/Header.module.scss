@@ -47,7 +47,11 @@
     height: 26px;
 }
 .containerBoxIcon {
-    @include flex_box_custom(center, center, 10px);
+    @include flex_box_custom(center, center, 18px);
+    color: #202020;
+    &:hover {
+        cursor: pointer;
+    }
 }
 .logoImg {
     width: 153px;

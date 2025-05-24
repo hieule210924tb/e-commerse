@@ -6,18 +6,22 @@
     height: 409px;
     background-repeat: no-repeat;
     background-size: cover;
-}
-.containerTimer {
-    @include flex_box_custom(center, center, 10px);
-}
-.title {
-    text-align: center;
-    color: $primary_color;
-    font-size: 28px;
-    margin-bottom: 5px;
-    color: $four_color;
-}
-.boxBtn {
-    margin-top: 20px;
-    text-align: center;
+    // @include flex_box_custom(start, center, 25px);
+    flex-direction: column;
+    .containerTimer {
+        @include flex_box_custom(center, center, 10px);
+    }
+    .title {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 5px;
+        color: $four_color;
+    }
+    .boxBtn {
+        margin-top: 20px;
+        text-align: center;
+        button {
+            width: 162px;
+        }
+    }
 }

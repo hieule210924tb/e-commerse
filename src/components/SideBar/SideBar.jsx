@@ -4,26 +4,31 @@ import { SideBarContext } from '@/contexts/SideBarProvider';
 import classNames from 'classnames';
 import { TfiClose } from 'react-icons/tfi';
 import Login from '@components/ContentSideBar/Login/Login';
+import Compare from '@components/ContentSideBar/Compare/Compare';
+import WishList from '@components/ContentSideBar/WishList/WishList';
+import Cart from '@components/ContentSideBar/Cart/Cart';
+
 function SideBar() {
     const { container, overlay, sideBar, slideSideBar, boxIcon } = styles;
     const { isOpen, setIsOpen, type } = useContext(SideBarContext);
+    console.log(type);
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
-    const handleRenderContent = () => {
+
+    const handleRenderContent = (type) => {
         switch (type) {
             case 'login':
                 return <Login />;
             case 'compare':
-                return 'compare';
+                return <Compare />;
             case 'wishlist':
-                return 'wishlist';
+                return <WishList />;
             case 'cart':
-                return 'cart';
-            default:
-                return <Login />;
+                return <Cart />;
         }
     };
+
     return (
         <div className={container}>
             <div
@@ -42,7 +47,7 @@ function SideBar() {
                         <TfiClose />
                     </div>
                 )}
-                {handleRenderContent()}
+                {handleRenderContent(type)}
             </div>
         </div>
     );

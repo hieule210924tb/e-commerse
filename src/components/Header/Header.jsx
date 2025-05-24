@@ -67,7 +67,6 @@ function MyHeader() {
                             .slice(3, dataMenu.length)
                             .map((item, index) => (
                                 <Menu
-                                    setIsOpen={setIsOpen}
                                     content={item.content}
                                     key={index}
                                     href={item.href}

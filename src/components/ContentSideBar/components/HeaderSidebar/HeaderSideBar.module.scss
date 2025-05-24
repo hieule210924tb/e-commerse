@@ -1,0 +1,15 @@
+@use '@styles/__mixin.module.scss' as *;
+@use '@styles/__variable.module.scss' as *;
+.container {
+    @include flex_box_custom(center, center, 10px);
+    // padding: 20px 30px;
+    flex-direction: column;
+    color: $thr_color;
+    .iconSideBar {
+        font-size: 24px;
+    }
+    .titleSideBar {
+        font-size: 18px;
+        font-weight: 400;
+    }
+}

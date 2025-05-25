@@ -11,7 +11,6 @@ import Cart from '@components/ContentSideBar/Cart/Cart';
 function SideBar() {
     const { container, overlay, sideBar, slideSideBar, boxIcon } = styles;
     const { isOpen, setIsOpen, type } = useContext(SideBarContext);
-    console.log(type);
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };

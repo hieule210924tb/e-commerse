@@ -13,11 +13,13 @@
     "axios": "^1.9.0",
     "classnames": "^2.5.1",
     "e-commerse-react-vite": "file:",
+    "formik": "^2.4.6",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.6.0"
+    "react-router-dom": "^7.6.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

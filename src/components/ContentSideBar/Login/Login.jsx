@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useContext, useState } from 'react';
 import { ToastContext } from '@/contexts/ToastProvider';
+import { register } from '@/apis/authService';
 function Login() {
     const {
         container,
@@ -16,6 +17,7 @@ function Login() {
         password,
     } = styles;
     const [isRegister, setIsRegister] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const { toast } = useContext(ToastContext);
     const formik = useFormik({
         initialValues: {
@@ -34,8 +36,22 @@ function Login() {
                 'Passwords must match ',
             ),
         }),
-        onSubmit: (values) => {
-            console.log('Form submitted:', values);
+        onSubmit: async (values) => {
+            if (isLoading) return;
+            if (isRegister) {
+                const { email: username, password } = values;
+                setIsLoading(true);
+                await register({ username, password })
+                    .then((res) => {
+                        toast.success(res.data.message);
+                        setIsLoading(false);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        toast.error(err.response.data.message);
+                        setIsLoading(false);
+                    });
+            }
         },
     });
     const handleToggle = () => {
@@ -84,9 +100,15 @@ function Login() {
                 )}
                 <div className={boxLogin}>
                     <Button
-                        content={isRegister ? 'REGISTER' : 'LOGIN'}
+                        content={
+                            isLoading
+                                ? 'LOADING...'
+                                : isRegister
+                                ? 'REGISTER'
+                                : 'LOGIN'
+                        }
                         type='submit'
-                        onClick={() => toast.success('Success')}
+                        // onClick={() => toast.success('Success')}
                     />
                 </div>
             </form>

@@ -58,11 +58,19 @@
     height: 53px;
 }
 .menu {
+    position: relative;
     margin-top: 16px;
     cursor: pointer;
     padding: 4px 0;
     font-size: 15px;
     color: $primary_color;
+    .subMenu {
+        position: absolute;
+        background-color: #fff;
+        width: 100%;
+        padding: 10px;
+        top: 40px;
+    }
 }
 .menu::after {
     content: '';

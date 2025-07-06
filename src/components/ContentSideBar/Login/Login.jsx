@@ -3,10 +3,12 @@ import styles from './Login.module.scss';
 import Button from '@components/Button/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { ToastContext } from '@/contexts/ToastProvider';
-import { register, signIn, getInfo } from '@/apis/authService';
+import { register, signIn } from '@/apis/authService';
 import Cookies from 'js-cookie';
+import { SideBarContext } from '@/contexts/SideBarProvider';
+import { StoreContext } from '@/contexts/storeProvider';
 function Login() {
     const {
         container,
@@ -20,6 +22,8 @@ function Login() {
     const [isRegister, setIsRegister] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useContext(ToastContext);
+    const { setIsOpen } = useContext(SideBarContext);
+    const { setUserId } = useContext(StoreContext);
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -48,7 +52,6 @@ function Login() {
                         setIsLoading(false);
                     })
                     .catch((err) => {
-                        console.log(err);
                         toast.error(err.response.data.message);
                         setIsLoading(false);
                     });
@@ -57,12 +60,17 @@ function Login() {
                 await signIn({ username, password })
                     .then((res) => {
                         setIsLoading(false);
-                        const { id, token, refreshToken } = res.data;
+                        const { id, token, refreshToken } = res;
+                        setUserId(id);
                         Cookies.set('token', token);
                         Cookies.set('refreshToken', refreshToken);
+                        Cookies.set('userId', id);
+                        toast.success('Sign in successfully!');
+                        setIsOpen(false);
                     })
                     .catch((err) => {
                         setIsLoading(false);
+                        toast.error('Sign in failed!');
                     });
             }
         },
@@ -70,9 +78,6 @@ function Login() {
     const handleToggle = () => {
         setIsRegister(!isRegister);
     };
-    useEffect(() => {
-        getInfo();
-    }, []);
     return (
         <div className={container}>
             <div className={title}>{isRegister ? 'SIGN UP' : 'SIGN IN'}</div>

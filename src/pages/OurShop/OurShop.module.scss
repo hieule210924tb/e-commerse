@@ -44,3 +44,24 @@
         }
     }
 }
+.containerFilter {
+    @include flex_box_custom(space-between, center, 2);
+    margin-top: 10px;
+    .boxLeft {
+        @include flex_box_custom(center, center, 20px);
+    }
+    .boxIcon {
+        @include flex_box_custom(center, center, 10px);
+    }
+    .selectBox {
+        border: 1px solid #e1e1e1;
+        padding: 5px;
+        color: $secondary_color;
+    }
+    .selectBox.sort {
+        width: 275px;
+    }
+    .selectBox.show {
+        width: 83px;
+    }
+}

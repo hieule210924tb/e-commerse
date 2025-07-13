@@ -27,7 +27,7 @@ function Menu({ content }) {
         }
     };
     const handleHover = () => {
-        console.log(content);
+        // console.log(content);
         if (content === 'Sign In' && userInfo) {
             setIsShowSubMenu(true);
         }

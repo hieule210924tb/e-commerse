@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Banner from '@/pages/OurShop/components/Banner';
 import { OurShopProvider, OurShopContext } from '@/contexts/OurShopProvider';
 import Filter from '@pages/OurShop/components/Filter';
-import ListProduct from '@pages/OurShop/components/ListProducts';
+import ListProducts from '@pages/OurShop/components/ListProducts';
 function OurShop() {
     const { container, functionBox, specialText, btnBack } = styles;
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ function OurShop() {
                 <Banner />
                 <div>
                     <Filter />
-                    <ListProduct />
+                    <ListProducts />
                 </div>
             </MainLayout>
         </OurShopProvider>

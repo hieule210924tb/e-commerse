@@ -63,10 +63,10 @@ export const OurShopProvider = ({ children }) => {
             page: 1,
             limit: showId,
         };
-        // console.log(query);
         getProducts(query)
             .then((res) => {
                 console.log(res);
+                setProducts(res.contents);
             })
             .catch((err) => {
                 console.log(err);

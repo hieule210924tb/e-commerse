@@ -22,7 +22,7 @@ axiosClient.interceptors.request.use(
 );
 axiosClient.interceptors.response.use(
     (res) => {
-        return res.data;
+        return res;
     },
     async (err) => {
         const originalRequest = err.config;

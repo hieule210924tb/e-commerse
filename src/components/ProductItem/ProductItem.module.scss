@@ -1,8 +1,8 @@
 @use '@styles/__variable.module.scss' as *;
 @use '@styles/__mixin.module.scss' as *;
-.container {
-    margin-bottom: 8px;
-}
+// .container {
+//     margin-bottom: 8px;
+// }
 .boxImg {
     position: relative;
     width: 300px;
@@ -60,4 +60,39 @@
     font-size: 14px;
     font-weight: 400;
     color: $thr_color;
+}
+.boxSize {
+    @include flex_box_custom(center, center, 10px);
+    .size {
+        @include flex_box_custom(center, center, 10px);
+        border: 1px solid #e1e1e1;
+        padding: 4px 6px;
+        font-size: 10px;
+        cursor: pointer;
+        &:hover {
+            border: 1px solid $primary_color;
+            transition: border 500ms;
+        }
+    }
+}
+.textCenter {
+    text-align: center;
+}
+.boxBtn {
+    width: 142px;
+    margin: 10px auto;
+}
+.containerItem {
+    @include flex_box_custom(flex-start, center, 20px);
+    margin-top: 10px;
+    .content {
+        @include flex_box_custom(flex-start, flex-start, 10px);
+        flex-direction: column;
+    }
+    .leftBtn {
+        margin: 0;
+    }
+    .largeImg {
+        width: 430px;
+    }
 }

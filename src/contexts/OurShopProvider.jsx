@@ -48,6 +48,30 @@ export const OurShopProvider = ({ children }) => {
     const [showId, setShowId] = useState('8');
     const [isShowGrid, setIsShowGrid] = useState(true);
     const [products, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadMore, setIsLoadMore] = useState(false);
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+
+    const handleLoadMore = () => {
+        const query = {
+            sortType: sortId,
+            page: +page + 1,
+            limit: showId,
+        };
+        setIsLoadMore(true);
+        getProducts(query)
+            .then((res) => {
+                setProducts((prev) => [...prev, ...res.contents]);
+                setPage(+res.page);
+                setTotal(res.total);
+                setIsLoadMore(false);
+            })
+            .catch((err) => {
+                console.log(err);
+                setIsLoadMore(false);
+            });
+    };
     const values = {
         sortOptions,
         showOptions,
@@ -55,7 +79,11 @@ export const OurShopProvider = ({ children }) => {
         setShowId,
         setIsShowGrid,
         products,
+        isLoading,
         isShowGrid,
+        handleLoadMore,
+        total,
+        isLoadMore,
     };
     useEffect(() => {
         const query = {
@@ -63,15 +91,20 @@ export const OurShopProvider = ({ children }) => {
             page: 1,
             limit: showId,
         };
+        setIsLoading(true);
         getProducts(query)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 setProducts(res.contents);
+                setTotal(res.total);
+                setIsLoading(false);
             })
             .catch((err) => {
                 console.log(err);
+                setIsLoading(false);
             });
     }, [sortId, showId]);
+    console.log(total);
     return (
         <OurShopContext.Provider value={values}>
             {children}

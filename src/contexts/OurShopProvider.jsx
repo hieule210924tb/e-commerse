@@ -104,7 +104,7 @@ export const OurShopProvider = ({ children }) => {
                 setIsLoading(false);
             });
     }, [sortId, showId]);
-    console.log(total);
+    // console.log(total);
     return (
         <OurShopContext.Provider value={values}>
             {children}

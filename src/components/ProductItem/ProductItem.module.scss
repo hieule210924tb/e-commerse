@@ -28,7 +28,9 @@
     &:hover .showFncHover {
         opacity: 1;
         right: 20px;
-        transition: opacity 500ms, right 300ms;
+        transition:
+            opacity 500ms,
+            right 300ms;
     }
     .showFncHover {
         position: absolute;
@@ -74,6 +76,15 @@
             transition: border 500ms;
         }
     }
+}
+.isActiveSize {
+    border: 1px solid $primary_color !important;
+}
+.btnClear {
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
 }
 .textCenter {
     text-align: center;

@@ -79,11 +79,29 @@
     background-color: $primary_color;
     transform-origin: right;
     transform: scale(0);
-    transition: transform 300ms, opacity 500ms;
+    transition:
+        transform 300ms,
+        opacity 500ms;
     opacity: 0;
     margin-top: 12px;
 }
 .menu:hover::after {
     transform: scale(1);
     opacity: 1;
+}
+.boxCart {
+    position: relative;
+
+    .quantity {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background-color: $primary_color;
+        font-size: 10px;
+        color: #fff;
+        @include radius_common(50%);
+        width: 15px;
+        height: 15px;
+        @include flex_box_custom(center, center, 0px);
+    }
 }

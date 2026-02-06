@@ -10,6 +10,7 @@ import useScrollHandling from '@/hooks/useScrollHandling';
 import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { SideBarContext } from '@/contexts/SideBarProvider';
+import { StoreContext } from '@/contexts/storeProvider';
 function MyHeader() {
     const {
         containerBoxIcon,
@@ -20,14 +21,32 @@ function MyHeader() {
         container,
         topHeader,
         fixedHeader,
+        boxCart,
+        quantity,
     } = styles;
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
-    const { setIsOpen, setType } = useContext(SideBarContext);
+    const {
+        setIsOpen,
+        setType,
+        listProductCart,
+        userId,
+        handleGetListProductsCart,
+    } = useContext(SideBarContext);
+    const { userInfo } = useContext(StoreContext);
     const handleOpenSideBar = (type) => {
         setIsOpen(true);
         setType(type);
     };
+    const handleOpenCartSideBar = () => {
+        handleGetListProductsCart(userId, 'cart');
+        handleOpenSideBar('cart');
+    };
+    const totalItemCart = listProductCart.length
+        ? listProductCart.reduce((acc, item) => {
+              return (acc += item.quantity);
+          }, 0)
+        : 0;
     useEffect(() => {
         scrollPosition > 90 ? setFixedPosition(true) : setFixedPosition(false);
     }, [scrollPosition]);
@@ -82,10 +101,18 @@ function MyHeader() {
                             style={{ fontSize: '24' }}
                             onClick={() => handleOpenSideBar('wishlist')}
                         />
-                        <PiShoppingCart
-                            style={{ fontSize: '24' }}
-                            onClick={() => handleOpenSideBar('cart')}
-                        />
+                        <div className={boxCart}>
+                            <PiShoppingCart
+                                style={{
+                                    fontSize: '25px',
+                                }}
+                                onClick={() => handleOpenCartSideBar()}
+                            />
+                            <div className={quantity}>
+                                {' '}
+                                {totalItemCart || userInfo?.amountCart || 0}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

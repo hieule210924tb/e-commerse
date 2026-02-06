@@ -18,7 +18,8 @@ export const StoreProvider = ({ children }) => {
         if (userId) {
             getInfo(userId)
                 .then((res) => {
-                    setUserInfo(res.data);
+                    setUserInfo(res.data.data);
+                    // Chú í chỗ này res.data
                 })
                 .catch((err) => {
                     console.log(err);

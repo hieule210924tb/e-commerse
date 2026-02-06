@@ -10,8 +10,8 @@ function App() {
         <StoreProvider>
             <ToastProvider>
                 <SideBarProvider>
-                    <SideBar />
                     <BrowserRouter>
+                        <SideBar />
                         {/* Suspense : dùng để khi chờ thì nó sẽ hiện dòng loading */}
                         <Suspense fallback={<div>Loading ...</div>}>
                             <Routes>

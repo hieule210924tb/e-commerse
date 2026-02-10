@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from '../../Cart.module.scss';
-// import SelectBox from '@/pages/OurShop/components/SelectBox';
-// import LoadingCart from '@/pages/Cart/components/Loading';
+import SelectBox from '@/pages/OurShop/components/SelectBox';
+import LoadingCart from '@/pages/Cart/components/Loading';
 
-const CartTable = () => {
+const CartTable = ({ listProductCart, getData, isLoading, getDataDelete }) => {
     const { cartTable } = styles;
 
     // const handleQuantityChange = (id, newQuantity) => {
@@ -19,38 +19,17 @@ const CartTable = () => {
         { label: '6', value: '6' },
         { label: '7', value: '7' },
     ];
-    const getValueSelect = (value) => {
-        // const data = {
-        //     userId,
-        //     productId,
-        //     quantity,
-        //     size,
-        //     isMultiple: true
-        // };
+    const getValueSelect = (userId, productId, quantity, size) => {
+        const data = {
+            userId,
+            productId,
+            quantity,
+            size,
+            isMultiple: true,
+        };
 
-        // getData(data);
-        console.log(value);
+        getData(data);
     };
-    const cartItems = [
-        {
-            id: 1,
-            name: 'nnnnn',
-            price: 102.25,
-            sku: 8435,
-            size: 'M',
-            quantity: 1,
-            image: 'https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.1-min.jpg',
-        },
-        {
-            id: 2,
-            name: 'nndddnnn',
-            price: 102.25,
-            sku: 84565,
-            size: 'M',
-            quantity: 1,
-            image: 'https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.2-min.jpg',
-        },
-    ];
 
     return (
         <div className={cartTable}>
@@ -66,10 +45,10 @@ const CartTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {cartItems.map((item) => (
+                    {listProductCart.map((item) => (
                         <tr key={item.id}>
                             <td className={styles.product}>
-                                <img src={item.image} alt={item.name} />
+                                <img src={item.images[0]} alt={item.name} />
                                 <div>
                                     <p>{item.name}</p>
                                     <p>Size: {item.size}</p>
@@ -80,6 +59,12 @@ const CartTable = () => {
                                     style={{
                                         cursor: 'pointer',
                                     }}
+                                    onClick={() =>
+                                        getDataDelete({
+                                            userId: item.userId,
+                                            productId: item.productId,
+                                        })
+                                    }
                                 >
                                     &#128465;
                                 </div>
@@ -87,11 +72,18 @@ const CartTable = () => {
                             <td>${item.price.toFixed(2)}</td>
                             <td>{item.sku}</td>
                             <td>
-                                <select
+                                <SelectBox
                                     type='show'
-                                    // defaultValue={item.quantity}
+                                    defaultValue={item.quantity}
                                     options={showOptions}
-                                    getValue={getValueSelect}
+                                    getValue={(e) =>
+                                        getValueSelect(
+                                            item.userId,
+                                            item.productId,
+                                            e,
+                                            item.size,
+                                        )
+                                    }
                                 />
                             </td>
                             <td>${(item.price * item.quantity).toFixed(2)}</td>
@@ -100,7 +92,7 @@ const CartTable = () => {
                 </tbody>
             </table>
 
-            {/* {isLoading && <LoadingCart />} */}
+            {isLoading && <LoadingCart />}
         </div>
     );
 };

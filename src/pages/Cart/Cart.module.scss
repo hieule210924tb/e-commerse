@@ -249,7 +249,6 @@
 
 .loadingCart {
     @include flex_box_custom(center, center, 30px);
-
     position: absolute;
     top: 0;
     left: 0;

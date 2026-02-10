@@ -109,8 +109,9 @@ function MyHeader() {
                                 onClick={() => handleOpenCartSideBar()}
                             />
                             <div className={quantity}>
-                                {' '}
-                                {totalItemCart || userInfo?.amountCart || 0}
+                                {totalItemCart ||
+                                    userInfo?.amountCart ||
+                                    0}{' '}
                             </div>
                         </div>
                     </div>

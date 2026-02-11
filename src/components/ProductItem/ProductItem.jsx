@@ -1,8 +1,7 @@
 import styles from './ProductItem.module.scss';
-import reLoadIcon from '@icons/svgs/reloadIcon.svg';
-import heartIcon from '@icons/svgs/heartIcon.svg';
-import cartIcon from '@icons/svgs/cartIcon.svg';
-import eyeIcon from '@icons/svgs/eyeIcon.svg';
+import { CiHeart } from 'react-icons/ci';
+import { LiaEyeSolid, LiaShoppingBagSolid } from 'react-icons/lia';
+import { TfiReload } from 'react-icons/tfi';
 import cls from 'classnames';
 import Button from '@components/Button/Button';
 import { useContext, useEffect, useState } from 'react';
@@ -12,6 +11,7 @@ import { SideBarContext } from '@/contexts/SideBarProvider';
 import { ToastContext } from '@/contexts/ToastProvider';
 import { addProductToCart } from '@/apis/cartService';
 import LoadingTextCommon from '@components/LoadingTextCommon/LoadingTextCommon';
+import { useNavigate } from 'react-router-dom';
 function ProductItem({
     src,
     prevSrc,
@@ -25,7 +25,7 @@ function ProductItem({
     const ourShopStore = useContext(OurShopContext);
     const [isShowGrid, setIsShowGrid] = useState(ourShopStore?.isShowGrid);
     const userId = Cookies.get('userId');
-    const { setIsOpen, setType, handleGetListProductsCart } =
+    const { setIsOpen, setType, handleGetListProductsCart, setDetailProduct } =
         useContext(SideBarContext);
     const { toast } = useContext(ToastContext);
     const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +47,7 @@ function ProductItem({
         isActiveSize,
         btnClear,
     } = styles;
+    const navigate = useNavigate();
     const handleChooseSize = (size) => {
         setSizeChoose(size);
     };
@@ -87,6 +88,15 @@ function ProductItem({
                 setIsLoading(false);
             });
     };
+    const handleShowDetailProductSideBar = () => {
+        setIsOpen(true);
+        setType('detail');
+        setDetailProduct(details);
+    };
+    const handleNavigateToDetail = () => {
+        const path = `/product/${details._id}`;
+        navigate(path);
+    };
     useEffect(() => {
         if (isHomePage) {
             setIsShowGrid(true);
@@ -95,22 +105,45 @@ function ProductItem({
         }
     }, [isHomePage, ourShopStore?.isShowGrid]);
     return (
-        <div className={isShowGrid ? '' : containerItem}>
+        <div
+            className={isShowGrid ? '' : containerItem}
+            style={{ cursor: 'pointer' }}
+            onClick={handleNavigateToDetail}
+        >
             <div className={cls(boxImg, { [largeImg]: !isShowGrid })}>
                 <img src={src} alt={name} />
                 <img className={showImgHover} src={prevSrc} alt={name} />
                 <div className={showFncHover}>
                     <div className={boxIcon}>
-                        <img src={cartIcon} alt='' />
+                        <LiaShoppingBagSolid
+                            style={{
+                                fontSize: '20px',
+                            }}
+                        />
                     </div>
                     <div className={boxIcon}>
-                        <img src={heartIcon} alt='' />
+                        <CiHeart
+                            style={{
+                                fontSize: '25px',
+                            }}
+                        />
                     </div>
                     <div className={boxIcon}>
-                        <img src={reLoadIcon} alt='' />
+                        <TfiReload
+                            style={{
+                                fontSize: '20px',
+                            }}
+                        />
                     </div>
-                    <div className={boxIcon}>
-                        <img src={eyeIcon} alt='' />
+                    <div
+                        className={boxIcon}
+                        onClick={handleShowDetailProductSideBar}
+                    >
+                        <LiaEyeSolid
+                            style={{
+                                fontSize: '23px',
+                            }}
+                        />
                     </div>
                 </div>
             </div>

@@ -5,11 +5,13 @@ import Cookies from 'js-cookie';
 
 export const SideBarContext = createContext();
 export const SideBarProvider = ({ children }) => {
+    const userId = Cookies.get('userId');
     const [isOpen, setIsOpen] = useState(false);
     const [type, setType] = useState('');
-    const userId = Cookies.get('userId');
     const [listProductCart, setListProductCart] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [detailProduct, setDetailProduct] = useState(null);
+
     const handleGetListProductsCart = (userId, type) => {
         if (userId && type === 'cart') {
             setIsLoading(true);
@@ -34,6 +36,8 @@ export const SideBarProvider = ({ children }) => {
         isLoading,
         setIsLoading,
         userId,
+        setDetailProduct,
+        detailProduct,
     };
     useEffect(() => {
         handleGetListProductsCart(userId, 'cart');

@@ -1,12 +1,14 @@
 import MyHeader from '@components/Header/Header';
 import MainLayout from '@components/Layout/Layout';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import Button from '@components/Button/Button';
 import { CiHeart } from 'react-icons/ci';
 import { TfiReload } from 'react-icons/tfi';
 import PaymentMethods from '@components/PaymentMethods/PaymentMethods';
 import AccordionMenu from '@components/AccordionMenu/AccordionMenu';
+import InformationProduct from '@/pages/DetailProduct/components/Infomation';
+import ReviewProduct from '@/pages/DetailProduct/components/Review';
 
 const DetailProduct = () => {
     const {
@@ -26,6 +28,23 @@ const DetailProduct = () => {
         addFunc,
         info,
     } = styles;
+    const [menuSelected, setMenuSelected] = useState(1);
+
+    const dataAccordionMenu = [
+        {
+            id: 1,
+            titleMenu: 'ADDITIONAL INFORMATION',
+            content: <InformationProduct />,
+        },
+        {
+            id: 2,
+            titleMenu: 'REVIEW (0)',
+            content: <ReviewProduct />,
+        },
+    ];
+    const handleSetMenuSelected = (id) => {
+        setMenuSelected(id);
+    };
     return (
         <>
             <MyHeader />
@@ -110,7 +129,23 @@ const DetailProduct = () => {
                                     Category: <span>Men</span>
                                 </div>
                             </div>
-                            <AccordionMenu />
+                            <div>
+                                {dataAccordionMenu.map((item) => {
+                                    return (
+                                        <AccordionMenu
+                                            key={item.id}
+                                            titleMenu={item.titleMenu}
+                                            contentJsx={item.content}
+                                            onClick={() =>
+                                                handleSetMenuSelected(item.id)
+                                            }
+                                            isSelected={
+                                                menuSelected === item.id
+                                            }
+                                        />
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 </MainLayout>

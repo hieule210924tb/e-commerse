@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from './AccordionMenu.module.scss';
-import { useState } from 'react';
 import cls from 'classnames';
 import { TfiLayoutLineSolid } from 'react-icons/tfi';
 import { FaAngleRight } from 'react-icons/fa6';
-const AccordionMenu = () => {
+const AccordionMenu = ({ titleMenu, contentJsx, onClick, isSelected }) => {
     const {
         container,
         title,
@@ -13,9 +12,8 @@ const AccordionMenu = () => {
         isVisibility,
         borderBottom,
     } = styles;
-    const [isSelected, setIsSelected] = useState(false);
     const handleToggle = () => {
-        setIsSelected(!isSelected);
+        onClick();
     };
     return (
         <div className={container}>
@@ -30,34 +28,14 @@ const AccordionMenu = () => {
                 ) : (
                     <FaAngleRight style={{ fontSize: '20px' }} />
                 )}{' '}
-                ADD
+                {titleMenu}
             </div>
             <div
                 className={cls(contentMenu, borderBottom, {
                     [isVisibility]: isSelected,
                 })}
             >
-                <div>Size --------- L ,M ,S</div>
-            </div>
-            <div
-                className={cls(title, {
-                    [activeTitle]: isSelected,
-                })}
-                onClick={handleToggle}
-            >
-                {isSelected ? (
-                    <TfiLayoutLineSolid style={{ fontSize: '20px' }} />
-                ) : (
-                    <FaAngleRight style={{ fontSize: '20px' }} />
-                )}{' '}
-                ADD
-            </div>
-            <div
-                className={cls(contentMenu, borderBottom, {
-                    [isVisibility]: isSelected,
-                })}
-            >
-                <div>Size --------- L ,M ,S</div>
+                {contentJsx}
             </div>
         </div>
     );

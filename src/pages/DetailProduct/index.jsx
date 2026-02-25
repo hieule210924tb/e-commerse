@@ -12,26 +12,13 @@ import ReviewProduct from '@/pages/DetailProduct/components/Review';
 import MyFooter from '@components/Footer/Footer';
 import SliderCommon from '@components/SliderCommon/SliderCommon';
 import cls from 'classnames';
-import { getDetailProduct } from '@/apis/productsService';
+import { getDetailProduct, getRelatedProduct } from '@/apis/productsService';
 import { useParams } from 'react-router-dom';
 import LoadingTextCommon from '@components/LoadingTextCommon/LoadingTextCommon';
 
 const INCREMENT = 'increment';
 const DECREMENT = 'decrement';
-const temDataSize = [
-    {
-        name: 'L',
-        amount: 'L',
-    },
-    {
-        name: 'M',
-        amount: 'M',
-    },
-    {
-        name: 'S',
-        amount: 'S',
-    },
-];
+
 const DetailProduct = () => {
     const {
         container,
@@ -59,8 +46,9 @@ const DetailProduct = () => {
     const [sizeSelected, setSizeSelected] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [data, setData] = useState();
-    console.log(data);
     const [isLoading, setIsLoading] = useState(false);
+    const [relatedData, setRelatedData] = useState([]);
+
     const param = useParams();
 
     const dataAccordionMenu = [
@@ -78,52 +66,7 @@ const DetailProduct = () => {
     const handleSetMenuSelected = (id) => {
         setMenuSelected(id);
     };
-    const temDataSlider = [
-        {
-            image: 'https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-16.1-min.jpg',
-            name: 'Test Product 1',
-            price: '1000',
-            size: [
-                {
-                    name: 'L',
-                },
-                { name: 'S' },
-            ],
-        },
-        {
-            image: 'https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-16.1-min.jpg',
-            name: 'Test Product 1',
-            price: '1000',
-            size: [
-                {
-                    name: 'L',
-                },
-                { name: 'S' },
-            ],
-        },
-        {
-            image: 'https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-16.1-min.jpg',
-            name: 'Test Product 1',
-            price: '1000',
-            size: [
-                {
-                    name: 'L',
-                },
-                { name: 'S' },
-            ],
-        },
-        {
-            image: 'https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-16.1-min.jpg',
-            name: 'Test Product 1',
-            price: '1000',
-            size: [
-                {
-                    name: 'L',
-                },
-                { name: 'S' },
-            ],
-        },
-    ];
+
     const handleSelectedSize = (size) => {
         setSizeSelected(size);
     };
@@ -148,9 +91,21 @@ const DetailProduct = () => {
             setIsLoading(false);
         }
     };
+    const fetchDataRelatedProduct = async (id) => {
+        setIsLoading(true);
+        try {
+            const data = await getRelatedProduct(`${id}`);
+            setRelatedData(data);
+            setIsLoading(false);
+        } catch (err) {
+            console.log(err);
+            setIsLoading(false);
+        }
+    };
     useEffect(() => {
         if (param.id) {
             fetchDataDetail(param.id);
+            fetchDataRelatedProduct(param.id);
         }
     }, [param]);
     return (
@@ -302,7 +257,7 @@ const DetailProduct = () => {
                     <div>
                         <h2>Related products</h2>
                         <SliderCommon
-                            data={temDataSlider}
+                            data={relatedData}
                             isProductItem
                             showItem={4}
                         />

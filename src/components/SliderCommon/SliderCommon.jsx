@@ -31,7 +31,7 @@ function SliderCommon({ data, isProductItem = false, showItem = 1 }) {
                                 name={item.name}
                                 price={item.price}
                                 details={item}
-                                isHomepage={false}
+                                isHomePage={false}
                                 slideItem
                             />
                         ) : (

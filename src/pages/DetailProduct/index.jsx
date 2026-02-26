@@ -1,6 +1,6 @@
 import MyHeader from '@components/Header/Header';
 import MainLayout from '@components/Layout/Layout';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import Button from '@components/Button/Button';
 import { CiHeart } from 'react-icons/ci';
@@ -16,6 +16,9 @@ import { getDetailProduct, getRelatedProduct } from '@/apis/productsService';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoadingTextCommon from '@components/LoadingTextCommon/LoadingTextCommon';
 import { toast } from 'react-toastify';
+import { handleAddProductToCartCommon } from '@/utils/helper';
+import { SideBarContext } from '@/contexts/SideBarProvider';
+import Cookies from 'js-cookie';
 
 const INCREMENT = 'increment';
 const DECREMENT = 'decrement';
@@ -50,7 +53,12 @@ const DetailProduct = () => {
     const [data, setData] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [relatedData, setRelatedData] = useState([]);
+    const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
+    const userId = Cookies.get('userId');
+
+    const { setIsOpen, setType, handleGetListProductsCart } =
+        useContext(SideBarContext);
     const param = useParams();
     const navigate = useNavigate();
     const dataAccordionMenu = [
@@ -105,6 +113,19 @@ const DetailProduct = () => {
             setRelatedData([]);
             setIsLoading(false);
         }
+    };
+    const handleAdd = () => {
+        handleAddProductToCartCommon(
+            userId,
+            setIsOpen,
+            setType,
+            toast,
+            sizeSelected,
+            param.id,
+            quantity,
+            setIsLoadingBtn,
+            handleGetListProductsCart,
+        );
     };
     useEffect(() => {
         if (param.id) {
@@ -209,11 +230,18 @@ const DetailProduct = () => {
                                             </div>
                                             <div className={boxBtn}>
                                                 <Button
-                                                    content={'Add to cart'}
+                                                    content={
+                                                        isLoadingBtn ? (
+                                                            <LoadingTextCommon />
+                                                        ) : (
+                                                            'Add to Cart'
+                                                        )
+                                                    }
                                                     customClassname={
                                                         !sizeSelected &&
                                                         activeDisabledBtn
                                                     }
+                                                    onClick={handleAdd}
                                                 />
                                             </div>
                                         </div>

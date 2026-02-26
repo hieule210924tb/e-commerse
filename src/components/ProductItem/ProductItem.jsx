@@ -9,9 +9,9 @@ import { OurShopContext } from '@/contexts/OurShopProvider';
 import Cookies from 'js-cookie';
 import { SideBarContext } from '@/contexts/SideBarProvider';
 import { ToastContext } from '@/contexts/ToastProvider';
-import { addProductToCart } from '@/apis/cartService';
 import LoadingTextCommon from '@components/LoadingTextCommon/LoadingTextCommon';
 import { useNavigate } from 'react-router-dom';
+import { handleAddProductToCartCommon } from '@/utils/helper';
 function ProductItem({
     src,
     prevSrc,
@@ -57,37 +57,17 @@ function ProductItem({
         setSizeChoose('');
     };
     const handleAddToCart = () => {
-        console.log(userId);
-        if (!userId) {
-            setIsOpen(true);
-            setType('login');
-            toast.warning('Please login to add product to cart!');
-            return;
-        }
-        if (!sizeChoose) {
-            toast.warning('Please choose size!');
-            return;
-        }
-
-        const data = {
+        handleAddProductToCartCommon(
             userId,
-            productId: details._id,
-            quantity: 1,
-            size: sizeChoose,
-        };
-        setIsLoading(true);
-        addProductToCart(data)
-            .then((res) => {
-                setIsOpen(true);
-                setType('cart');
-                toast.success('Add Product to cart successfully!');
-                setIsLoading(false);
-                handleGetListProductsCart(userId, 'cart');
-            })
-            .catch((err) => {
-                toast.error('Add Product to cart failed!');
-                setIsLoading(false);
-            });
+            setIsOpen,
+            setType,
+            toast,
+            sizeChoose,
+            details._id,
+            1,
+            setIsLoading,
+            handleGetListProductsCart,
+        );
     };
     const handleShowDetailProductSideBar = () => {
         setIsOpen(true);
@@ -114,9 +94,11 @@ function ProductItem({
         <div
             className={isShowGrid ? '' : containerItem}
             style={{ cursor: 'pointer' }}
-            onClick={handleNavigateToDetail}
         >
-            <div className={cls(boxImg, { [largeImg]: !isShowGrid })}>
+            <div
+                className={cls(boxImg, { [largeImg]: !isShowGrid })}
+                onClick={handleNavigateToDetail}
+            >
                 <img src={src} alt={name} />
                 <img className={showImgHover} src={prevSrc} alt={name} />
                 <div className={showFncHover}>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import CartTable from '@/pages/Cart/components/contents/CartTable';
 import styles from '../../Cart.module.scss';
 import CartSummary from '@/pages/Cart/components/contents/CartSummary';
@@ -9,6 +9,7 @@ import { deleteItem } from '@/apis/cartService';
 import { deleteCart } from '@/apis/cartService';
 import { useNavigate } from 'react-router-dom';
 import { PiShoppingCartLight } from 'react-icons/pi';
+import { getCart } from '@/apis/cartService';
 const Content = () => {
     const {
         containerContents,
@@ -25,6 +26,7 @@ const Content = () => {
         isLoading,
         setIsLoading,
         userId,
+        setListProductCart,
     } = useContext(SideBarContext);
     const navigate = useNavigate();
     const handleReplaceQuantity = (data) => {
@@ -62,7 +64,19 @@ const Content = () => {
     const handleNavigateToShop = () => {
         navigate('/shop');
     };
-
+    useEffect(() => {
+        if (userId) {
+            getCart(userId)
+                .then((res) => {
+                    setListProductCart(res.data.data);
+                    setIsLoading(false);
+                })
+                .catch((err) => {
+                    setListProductCart([]);
+                    setIsLoading(false);
+                });
+        }
+    }, []);
     return (
         <>
             {listProductCart.length > 0 && userId ? (

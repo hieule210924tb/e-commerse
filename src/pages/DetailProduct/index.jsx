@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import { handleAddProductToCartCommon } from '@/utils/helper';
 import { SideBarContext } from '@/contexts/SideBarProvider';
 import Cookies from 'js-cookie';
+import { addProductToCart } from '@/apis/cartService';
 
 const INCREMENT = 'increment';
 const DECREMENT = 'decrement';
@@ -54,7 +55,7 @@ const DetailProduct = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [relatedData, setRelatedData] = useState([]);
     const [isLoadingBtn, setIsLoadingBtn] = useState(false);
-
+    const [isLoadingBtnBuyNow, setIsLoadingBtnBuyNow] = useState(false);
     const userId = Cookies.get('userId');
 
     const { setIsOpen, setType, handleGetListProductsCart } =
@@ -126,6 +127,25 @@ const DetailProduct = () => {
             setIsLoadingBtn,
             handleGetListProductsCart,
         );
+    };
+    const handleBuyNow = () => {
+        const data = {
+            userId,
+            productId: param.id,
+            quantity,
+            size: sizeSelected,
+        };
+        setIsLoadingBtnBuyNow(true);
+        addProductToCart(data)
+            .then((res) => {
+                toast.success('Add Product to cart successfully!');
+                setIsLoadingBtnBuyNow(false);
+                navigate('/cart');
+            })
+            .catch((err) => {
+                toast.error('Add Product to cart failed!');
+                setIsLoadingBtnBuyNow(false);
+            });
     };
     useEffect(() => {
         if (param.id) {
@@ -252,11 +272,18 @@ const DetailProduct = () => {
                                         </div>
                                         <div>
                                             <Button
-                                                content={'Buy now'}
+                                                content={
+                                                    isLoadingBtnBuyNow ? (
+                                                        <LoadingTextCommon />
+                                                    ) : (
+                                                        'Buy now'
+                                                    )
+                                                }
                                                 customClassname={
                                                     !sizeSelected &&
                                                     activeDisabledBtn
                                                 }
+                                                onClick={handleBuyNow}
                                             />
                                         </div>
                                         <div className={addFunc}>

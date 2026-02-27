@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { getCart } from '@/apis/cartService';
 import Cookies from 'js-cookie';
 

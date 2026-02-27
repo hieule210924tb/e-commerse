@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from '../../Cart.module.scss';
 import Stepper from '@/pages/Cart/components/steps/Stepper';
-function Step({ currentStep, setCurrentStep }) {
+import { StepperContext } from '@/contexts/SteperProvider';
+function Step() {
+    const { currentStep, setCurrentStep } = useContext(StepperContext);
     const { containerSteps, steps, line, textNoti } = styles;
     const dataSteps = [
         { number: 1, content: 'Shopping cart' },

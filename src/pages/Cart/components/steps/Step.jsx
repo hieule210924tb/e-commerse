@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../Cart.module.scss';
 import Stepper from '@/pages/Cart/components/steps/Stepper';
-function Step() {
+function Step({ currentStep, setCurrentStep }) {
     const { containerSteps, steps, line, textNoti } = styles;
     const dataSteps = [
         { number: 1, content: 'Shopping cart' },
@@ -18,7 +18,8 @@ function Step() {
                                 number={item.number}
                                 content={item.content}
                                 key={index}
-                                isDisabled={index !== 0}
+                                isDisabled={index >= currentStep}
+                                setCurrentStep={setCurrentStep}
                             />
                             {index !== dataSteps.length - 1 && (
                                 <div className={line}></div>

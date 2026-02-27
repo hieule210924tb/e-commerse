@@ -20,11 +20,11 @@ const dataMenu = [
     },
     {
         content: 'Our Shop',
-        href: '#',
+        href: '#shop',
     },
     {
         content: 'About us',
-        href: '#',
+        href: '#about-us',
     },
     {
         content: 'Contacts',

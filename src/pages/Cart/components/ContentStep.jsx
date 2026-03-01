@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { StepperContext } from '@/contexts/SteperProvider';
 import Content from '@/pages/Cart/components/contents/Content';
+import Checkout from '@/pages/Cart/components/Checkout/Checkout';
 
 function ContentStep() {
     const { currentStep } = useContext(StepperContext);
@@ -9,7 +10,7 @@ function ContentStep() {
             case 1:
                 return <Content />;
             case 2:
-                return <>checkout</>;
+                return <Checkout />;
             case 3:
                 return <>step 3</>;
         }
